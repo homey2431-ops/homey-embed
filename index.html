@@ -1,30 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>HomeServe Assistant</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      background: #fff;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-  </style>
+    <title>Quick Chat Embedding</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#232f3e">
+    <script src="https://unpkg.com/amazon-quicksight-embedding-sdk@2.11.3/dist/quicksight-embedding-js-sdk.min.js"></script>
+    <script type="text/javascript">
+        const embedQuickChat = async () => {
+            const { createEmbeddingContext } = QuickSightEmbedding;
+            const embeddingContext = await createEmbeddingContext();
+
+            const frameOptions = {
+                url: "https://us-east-1.quicksight.aws.amazon.com/embedding/c36b4687b739403085e95b4fe4678d72/quick/chat?code=AYABeIAyZb2Vw7p0Sn6CQ0aMF-MAAAABAAdhd3Mta21zAEthcm46YXdzOmttczp1cy1lYXN0LTE6MjU5NDgwNDYyMTMyOmtleS81NGYwMjdiYy03MDJhLTQxY2YtYmViNS0xNDViOTExNzFkYzMAuAECAQB42HF-xHeyR8SWG2ci7dp0XHnX-PgsyDaeZAM7ATifPbwBtOw2ruIkRlvvjh9a7TsfTAAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDOWq4l5vmYt76f82kQIBEIA7Fke_FN59_cI40KsQi69ZoSx9HFTce-Xdapww7cldOaAP86sLUJ-WlufaRXEFnvYWPvOuBbUM5PvdcwECAAAAAAwAABAAAAAAAAAAAAAAAAAAhG3kDMDnrDE5n96R1L5U8_____8AAAABAAAAAAAAAAAAAAABAAAAof9Bo2Nymgmyy0ABSuVt6-uJAeoYRC8NgxZkm6CCBlecfe4iiBeLyaWSjjZnX-2ki4CIEi562QZXQjsZ4LAB7P_TNNRpy2SCDj3NCYQODc1ZHR4gxzD14erjMECH17BfHIuzXr-v2xax4QytzoQpeR5vRescyj6NG3GS5M1OKY0lJ3_n0J9XJ66thiIsPVyiios90uxju1HoGESxQ-hLugwp8N9skHONXjpxp5yRuSP6kg%3D%3D&identityprovider=quicksight&isauthcode=true",
+                container: '#experience-container',
+                height: "700px",
+                width: "100%",
+            };
+
+            const contentOptions = {
+                agentOptions: {
+                    fixedAgentId: 'f838790c-2151-444b-8600-9bf7f632153e',
+                },
+                promptOptions: {
+                    showPromptArea: true,
+                },
+                footerOptions: {
+                    showBrandAttribution: false,
+                },
+                onMessage: async (messageEvent) => {
+                    switch (messageEvent.eventName) {
+                        case 'CONTENT_LOADED':
+                            console.log("Quick Chat loaded.");
+                            break;
+                        case 'ERROR_OCCURRED':
+                            console.log("Error:", messageEvent);
+                            break;
+                    }
+                }
+            };
+
+            await embeddingContext.embedQuickChat(frameOptions, contentOptions);
+        };
+    </script>
 </head>
-<body>
-  <iframe
-    allow="clipboard-read https://us-east-1.quicksight.aws.amazon.com; clipboard-write https://us-east-1.quicksight.aws.amazon.com"
-    src="https://us-east-1.quicksight.aws.amazon.com/embedding/c2ee43bffc8b4b34b099940f83111b4d/q/search/nre/f838790c-2151-444b-8600-9bf7f632153e?code=AYABeEkLmiT5vT0cBMBC3LU0KwoAAAABAAdhd3Mta21zAEthcm46YXdzOmttczp1cy1lYXN0LTE6MjU5NDgwNDYyMTMyOmtleS81NGYwMjdiYy03MDJhLTQxY2YtYmViNS0xNDViOTExNzFkYzMAuAECAQB42HF-xHeyR8SWG2ci7dp0XHnX-PgsyDaeZAM7ATifPbwBmOCpC4nvK6yc5sbSu3rP0gAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDM3L8GpXctAbIsUUhAIBEIA75tAsjdqw_9BbrjxTp6p_kD03KgNkRklLbgkKS_AunZ4E65jyBuMe9q0mGEjD-iOJN4yaGadpJo6OMo0CAAAAAAwAABAAAAAAAAAAAAAAAAAAvwCDv4_ISXKxE1FCM2BX6f____8AAAABAAAAAAAAAAAAAAABAAAAoWcmM4HWn5Uu8-Yqd0SrCOuIOPWoG3yKuUgGWJ-LmmU-P3hqRYERqpHUfNVX7qjZbIVNyRRHyQ_08YnzX_Wrd-RuwQ-AeMs4mBtf0fGoYaF5N549I-VbggicYk80YLTujNWqDKde91LutXI1XdiU8lilhTwtc08G1BRy8Jji0UDDFFyRnz8y_xOhXJAOGmbf67kWszxBrudhus0XSAlkGK0ZEz-Oyz7mej2AoHHliqVWNg%3D%3D&identityprovider=quicksight&isauthcode=true">
-  </iframe>
+<body onload="embedQuickChat()">
+    <div id="experience-container"></div>
 </body>
 </html>
