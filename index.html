@@ -1,21 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Quick Chat Embedding</title>
+    <title>QuickChat</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="manifest" href="manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#232f3e">
+    <link rel="icon" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background: #ed0546;
+        }
+        #experience-container {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
     <script src="https://unpkg.com/amazon-quicksight-embedding-sdk@2.11.3/dist/quicksight-embedding-js-sdk.min.js"></script>
     <script type="text/javascript">
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
         const embedQuickChat = async () => {
             const { createEmbeddingContext } = QuickSightEmbedding;
             const embeddingContext = await createEmbeddingContext();
 
             const frameOptions = {
-                url: "https://us-east-1.quicksight.aws.amazon.com/embedding/f439ffd1a7a0421a9982ca6eb29a47aa/quick/chat?code=AYABeAinRmuNpi800Gwxv1BnrawAAAABAAdhd3Mta21zAEthcm46YXdzOmttczp1cy1lYXN0LTE6MjU5NDgwNDYyMTMyOmtleS81NGYwMjdiYy03MDJhLTQxY2YtYmViNS0xNDViOTExNzFkYzMAuAECAQB42HF-xHeyR8SWG2ci7dp0XHnX-PgsyDaeZAM7ATifPbwB5ijL0TilbnxZSrCfKHPZhwAAAH4wfAYJKoZIhvcNAQcGoG8wbQIBADBoBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDP3_sw-u8wxZhu6MTgIBEIA7gSGB0qI91RFfKqrTHep9ZbcmloQz3XHTnqFLHDxeaV_pzv1DhiHuKVvEqTyAhpuaF9awiZZje4TMe50CAAAAAAwAABAAAAAAAAAAAAAAAAAAC0zJJmBDlrz_tXgsCS2hOP____8AAAABAAAAAAAAAAAAAAABAAAAoVlBwzmQQWQ5-bpY566zAQPT-U5-ekHIJ7U1n0EHouBlLqMI6z_tvIrwJ-u0JoKs0F9S44Ondh_118qrpAPkVwC5OSkvTeikCPVF0G9-UOVl9sy4fj6Ih6B2_IRsrPVa0JhU6EtUdysXnWq41pYS75nqabD7s4A-e6tVJhU-1w2tkLHf88Ezanc_gVoHc-Cmz2s42b5hqU2p9yEocd7v6qCqL3ACvE-eYDV3YYcKzOMUTw%3D%3D&identityprovider=quicksight&isauthcode=true",
+                url: "<PASTE_EMBED_URL_HERE>",
                 container: '#experience-container',
-                height: "700px",
+                height: "100%",
                 width: "100%",
             };
 
